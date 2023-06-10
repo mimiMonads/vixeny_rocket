@@ -1,5 +1,4 @@
-import fun from "./fun.ts"
-
+import fun from "vixeny"
 Bun.serve({
     port: 8000, 
     hostname: "127.0.0.1",
