@@ -6,7 +6,7 @@ use rocket::Request;
 
 #[get("/")]
 fn index() -> &'static str {
-    "Welcome to the home page!"
+    "Hello world"
 }
 
 #[get("/get/<id>")]
@@ -24,6 +24,11 @@ fn query(q: String) -> String {
     format!("Received query q={}", q)
 }
 
+#[get("/get/<name>/<id>/<num>")]
+fn multi_param(name: String, id: u32, num: u32) -> String {
+    format!("Name: {}, ID: {}, Num: {}", name, id, num)
+}
+
 #[catch(404)]
 fn not_found(req: &Request) -> String {
     format!("Oh no! We couldn't find the requested path '{}'", req.uri())
@@ -32,6 +37,6 @@ fn not_found(req: &Request) -> String {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![index, get_id, nested, query])
+        .mount("/", routes![index, get_id,multi_param, nested, query])
         .register("/", catchers![not_found])
 }
