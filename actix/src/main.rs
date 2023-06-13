@@ -29,6 +29,11 @@ async fn query(info: web::Query<QueryParams>) -> impl Responder {
     format!("Recived 'q': {}", query_param)
 }
 
+#[get("/a/b/c/d/e/f")]
+async fn nested() -> impl Responder {
+    "You've reached /a/b/c/d/e/f!"
+}
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -38,6 +43,7 @@ async fn main() -> std::io::Result<()> {
            .service(hello)
            .service(multi_param)
            .service(query)
+            .service(nested)
     })
     .bind("127.0.0.1:8000")?
     .run()
